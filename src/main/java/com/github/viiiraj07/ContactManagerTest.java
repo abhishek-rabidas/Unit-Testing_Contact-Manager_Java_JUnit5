@@ -1,12 +1,29 @@
 package com.github.viiiraj07;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ContactManagerTest {
 
-    ContactManager contactManager = new ContactManager();
+    ContactManager contactManager;
+
+    @BeforeAll
+    void beforeAll(){
+        /*We don't need to mark it as static because we have changed the default test lifecycle
+        by using @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+        */
+        contactManager = new ContactManager();
+    }
+
+    @BeforeEach
+    void beforeEach(){
+        System.out.println("Before each test cases");
+    }
+
+    @AfterAll
+    void afterAll(){
+        System.out.println("After all test cases");
+    }
 
     @Test
     @DisplayName("Should Throw Exception when null is passed")
