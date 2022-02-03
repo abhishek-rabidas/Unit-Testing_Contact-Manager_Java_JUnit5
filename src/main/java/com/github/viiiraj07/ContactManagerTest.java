@@ -1,6 +1,9 @@
 package com.github.viiiraj07;
 
+
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ContactManagerTest {
@@ -44,6 +47,20 @@ class ContactManagerTest {
     void validatePhoneNumber(){
         Assertions.assertThrows(RuntimeException.class, ()->{
             Contact contact = new Contact("Abbb", "Kkk", "3535fafs2asf525");
+            contact.validatePhoneNumber();
+        });
+    }
+
+    @RepeatedTest(value = 10)
+    void loopingTest(){
+        System.out.println("This will be printed multiple times");
+    }
+
+    @ParameterizedTest
+    @CsvSource({"4172417294", "0124124124", "12412412"})
+    void checkNumbers(String phoneNumber){
+        Assertions.assertThrows(RuntimeException.class, ()->{
+            Contact contact = new Contact("Abbb", "Kkk", phoneNumber);
             contact.validatePhoneNumber();
         });
     }
